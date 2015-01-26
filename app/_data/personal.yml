@@ -1,0 +1,26 @@
+# Site detail
+title: "Oleh Zasadnyy"
+description: "Hello, my name is Oleh, I'm Java developer and Google Developers Group Lviv manager. Besides that I'm also interested in web development, design and community management."
+keywords: "developer, designer, gdg manager"
+twitter: bilenkuyboy
+
+# Base information
+name: Oleh
+surname: Zasadnyy
+
+# Social resharing
+twitter_image: "/img/seo/sharing-twitter.png"
+google_plus_image: "/img/seo/sharing-google-plus.png"
+facebook_image: "/img/seo/sharing-facebook.png"
+
+# Navigation
+navigation:
+ - {permalink: "/", text: "Blog"}
+ - {permalink: "/slides/", text: "Slides"}
+ - {permalink: "/projects/", text: "Projects"}
+
+# Blog
+images_folder: "/img/posts/"
+discus_short_name: "ozasadnyy"
+about_me: "Hello, my name is Oleh, I'm Java developer and Google Developers Group Lviv manager. Besides that I'm also interested in web development, design and community management."
+get_in_touch: "Connect with me on <a href='https://www.google.com/+OlehZasadnyy' target='_blank'>Google+</a>, <a href='https://www.facebook.com/oleh.zasadnyy' target='_blank'>Facebook</a> or <a href='https://www.linkedin.com/in/ozasadnyy' target='_blank'>LinkedIn</a>. If you want get me directly, please send me an <a href='mailto:oleh@zasadnyy.com' target='_blank'>email</a>."

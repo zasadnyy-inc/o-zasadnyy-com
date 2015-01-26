@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en" itemscope="" itemtype="http://schema.org/TechArticle">
+
+{% include blog/head.html %}
+
+<body>
+	<div class="container">
+		{% include blog/header.html %}
+	</div>
+
+	<div class="article-header container-fluid">
+		<div class="container">
+			<h1 class="article-title" itemprop="name">{{ page.title }}</h1>
+			<p class="article-description" itemprop="headline">{{ page.headline }}</p>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<div class="article-meta col-md-5 col-xs-12">
+				<ul>
+					<li>
+						{% if page.updated %}
+						<span class="name">Last updated:</span>
+						<span class="value" itemprop="dateModified" content="{{ page.updated | date: " %Y-%m-%d " }}">{{ page.updated | date: "%B %-d, %Y" }}</span> {% else %}
+						<span class="name">Date published:</span>
+						<span class="value" itemprop="datePublished" content="{{ page.date | date: " %Y-%m-%d " }}">{{ page.date | date: "%B %-d, %Y" }}</span> {% endif %}
+					</li>
+					<li>
+						<span class="name">Est. Read Time:</span>
+						<span class="value">{{ page.estimate }}</span>
+					</li>
+					<li>
+						<span class="name">Share with:</span> {% assign articleUrl = page.url | prepend: site.baseurl | prepend: site.url %}
+						<span class="value">
+								<a href="#" onclick="window.open('https://plus.google.com/share?url={{ articleUrl }}', 'newwindow', 'width=600, height=500'); return false;">Google+</a>
+							</span>
+						<span>&#8226;</span>
+						<span class="value">
+								<a href="#" onclick="window.open('https://twitter.com/home?status={{ articleUrl }}', 'newwindow', 'width=600, height=250'); return false;">Twitter</a>
+							</span>
+						<span>&#8226;</span>
+						<span class="value">
+								<a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ articleUrl }}', 'newwindow', 'width=600, height=500'); return false;">Facebook</a>
+							</span>
+					</li>
+					{% if page.proficiencyLevel %}
+					<li>
+						<span class="name">Proficiency level:</span>
+						<span class="value" itemprop="proficiencyLevel">{{ page.proficiencyLevel }}</span>
+					</li>
+					{% endif %}
+					<li>
+						<span class="name">Tags:</span>
+						<span class="value">
+						{% for category in page.categories %}
+							#{{ category }}{% if forloop.index < forloop.length %}, {% endif %}
+						{% endfor %}
+						</span>
+					</li>
+					{% if page.external %}
+					<li>
+						<span class="name">Originaly published at:</span>
+						<span class="value">
+							<a href="{{ page.sourceUrl }}" target="_blank">{{ page.sourceName }}</a>
+						</span>
+					</li>
+					{% endif %}
+				</ul>
+			</div>
+			<article class="article col-md-9" itemprop="articleBody">
+
+				{{ content }}
+
+				<hr> Share with:
+				<span class="value">
+					<a href="#" onclick="window.open('https://plus.google.com/share?url={{ articleUrl }}', 'newwindow', 'width=600, height=500'); return false;">Google+</a>
+				</span>
+				<span>&#8226;</span>
+				<span class="value">
+					<a href="#" onclick="window.open('https://twitter.com/home?status={{ articleUrl }}', 'newwindow', 'width=600, height=250'); return false;">Twitter</a>
+				</span>
+				<span>&#8226;</span>
+				<span class="value">
+					<a href="#" onclick="window.open('https://www.facebook.com/sharer/sharer.php?u={{ articleUrl }}', 'newwindow', 'width=600, height=500'); return false;">Facebook</a>
+				</span>
+			</article>
+
+			<div class="post-switcher col-md-9">
+				<div class="row">
+					<div class="switcher-item col-sm-6">
+						{% if page.next.url %}
+						<a href="{{ page.next.url | prepend: site.baseurl }}" title="{{ page.next.title }}">
+							<span class="arrow">←</span>
+							<p class="switcher-content">{{ page.next.title }}</p>
+						</a>
+						{% endif %}
+					</div>
+					<div class="switcher-item col-sm-6">
+						{% if page.previous.url %}
+						<a class="text-right" href="{{ page.previous.url | prepend: site.baseurl }}" title="{{ page.previous.title }}">
+							<p class="switcher-content">{{ page.previous.title }}</p>
+							<span class="arrow">→</span>
+						</a>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+
+			<div class="comments col-md-9">
+				{% include disqus-comments.html %}
+			</div>
+
+		</div>
+	</div>
+
+	<div class="container-fluid footer-container">
+		{% include blog/footer.html %}
+	</div>
+
+	{% include analytics.html %} {% include webfont.html %}
+
+</body>
+
+</html>

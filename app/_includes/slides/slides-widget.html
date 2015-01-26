@@ -1,0 +1,14 @@
+<div class="projects-widget col-md-5 col-md-offset-1">
+    <span class="widget-title">Recent slides</span>
+    <ul>
+        {% for item in site.data.slides limit:3 reversed %}
+            <li class="project-item">
+                <a href="{{ item.slides_url }}">
+                    <h6 class="project-title">{{ item.title }}</h6>
+                    <p class="project-details">{{ item.description | truncate: 50 }}</p>
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+    <a class="side-link" href="{{ "/slides/" || prepend: site.baseurl }}">See all</a>
+</div>

@@ -1,0 +1,35 @@
+.slides-gallery {
+    ul {
+        padding: 0;
+        list-style: none;
+    }
+}
+.slide-item {
+    margin-bottom: 50px;
+    padding: 0 25px;
+    &:hover, &:active, &:focus {
+        .thumb {
+            opacity: .8;
+            box-shadow: 0 0 8px 0 rgba(0, 0, 0, .2);
+        }
+        .slide-title {
+            color: lighten($text-color, $link-lighten-amount);
+        }
+    }
+    .thumb {
+        height: 150px;
+        transition: $opacity-animation, $box-shadow-animation;
+        box-shadow: 0 0 3px 0 rgba(0, 0, 0, .2);
+    }
+}
+.slide-title {
+    color: $text-color;
+    font-size: 18px;
+    transition: $color-animation;
+    margin-bottom: 0px;
+}
+.slide-date {
+    color: $sub-text-color;
+    font-size: 14px;
+    transition: $color-animation;   
+}
