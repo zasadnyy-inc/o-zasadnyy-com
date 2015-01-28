@@ -16,7 +16,8 @@ I liked the idea of modules in site project that eventually will generate static
 
 That's why it was the perfect choice for [Project Zeppelin](https://github.com/gdg-x/zeppelin) - free site template for conferences (mostly GDG DevFest, but for sure you can use it as you want). Unfortunately there are limitations of using plug-ins with GitHub pages, so you can't use them, for example, to compile Compass files, minify css, js and html files or highlight your code.
 
-Fortunately, [Grunt](http://gruntjs.com/) help us with it and gives even more. So let's get started.
+Fortunately, [Grunt](http://gruntjs.com/) help us with it and gives even more. So let's get started.\\
+
 
 #### Installation
 First of all you need to install [Bundler](http://bundler.io/) for easier way to install gem dependencies
@@ -58,9 +59,8 @@ We are almost ready to use Grunt, but first of all you need to create **package.
     "author": "Name Surname",
     "devDependencies": {
         "grunt": "~0.4.5",
-        "grunt-autoprefixer": "~2.1.0",
-        "grunt-build-control": "~0.2.2",
-        "grunt-concurrent": "~1.0.0",
+        "grunt-autoprefixer": "~2.2.0",
+        "grunt-build-control": "~0.3.0",
         "grunt-contrib-clean": "~0.6.0",
         "grunt-contrib-connect": "~0.9.0",
         "grunt-contrib-copy": "~0.7.0",
@@ -73,8 +73,7 @@ We are almost ready to use Grunt, but first of all you need to create **package.
         "grunt-jekyll": "~0.4.2",
         "grunt-sass": "~0.17.0",
         "grunt-svgmin": "~2.0.0",
-        "grunt-uncss": "~0.3.8",
-        "grunt-usemin": "~3.0.0",
+        "grunt-uncss": "~0.4.0",
         "jit-grunt": "~0.9.0",
         "time-grunt": "~1.0.0"
     },
@@ -96,16 +95,373 @@ npm install
 Grunt allows us to define a couple of tasks and run them from the shell. They are defined in a Gruntfile.js. I have generated first Gruntfile with [Yeoman Generator](https://github.com/robwierzbowski/generator-jekyllrb), but then I edited to get the better result. So that it is what I got.
 
 ```js title:"Gruntfile.js"
+'use strict';
 
+module.exports = function(grunt) {
+    // Show elapsed time after tasks run
+    require('time-grunt')(grunt);
+    // Load all Grunt tasks
+    require('jit-grunt')(grunt);
 
+    grunt.initConfig({
+        yeoman: {
+            app: 'app',
+            dist: 'dist',
+            baseurl: ''
+        },
+        watch: {
+            sass: {
+                files: ['<%= yeoman.app %>/_assets/scss/**/*.{scss,sass}'],
+                tasks: ['sass:server', 'autoprefixer']
+            },
+            scripts: {
+                files: ['<%= yeoman.app %>/_assets/js/**/*.{js}'],
+                tasks: ['uglify']
+            },
+            jekyll: {
+                files: [
+                    '<%= yeoman.app %>/**/*.{html,yml,md,mkd,markdown}'
+                ],
+                tasks: ['jekyll:server']
+            },
+            livereload: {
+                options: {
+                    livereload: '<%= connect.options.livereload %>'
+                },
+                files: [
+                    '.jekyll/**/*.{html,yml,md,mkd,markdown}',
+                    '.tmp/<%= yeoman.baseurl %>/css/*.css',
+                    '.tmp/<%= yeoman.baseurl %>/js/*.js',
+                    '<%= yeoman.app %>/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
+                ]
+            }
+        },
+        connect: {
+            options: {
+                port: 9000,
+                livereload: 35729,
+                // change this to '0.0.0.0' to access the server from outside
+                hostname: 'localhost'
+            },
+            livereload: {
+                options: {
+                    open: {
+                        target: 'http://localhost:9000/<%= yeoman.baseurl %>'
+                    },
+                    base: [
+                        '.jekyll',
+                        '.tmp',
+                        '<%= yeoman.app %>'
+                    ]
+                }
+            },
+            dist: {
+                options: {
+                    open: {
+                        target: 'http://localhost:9000/<%= yeoman.baseurl %>'
+                    },
+                    base: [
+                        '<%= yeoman.dist %>',
+                        '.tmp'
+                    ]
+                }
+            }
+        },
+        clean: {
+            server: [
+                '.jekyll',
+                '.tmp'
+            ],
+            dist: {
+                files: [{
+                    dot: true,
+                    src: [
+                        '.tmp',
+                        '<%= yeoman.dist %>/*',
+                        '!<%= yeoman.dist %>/.git*'
+                    ]
+                }]
+            }
+        },
+        jekyll: {
+            options: {
+                config: '_config.yml,_config.build.yml',
+                src: '<%= yeoman.app %>'
+            },
+            dist: {
+                options: {
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                }
+            },
+            server: {
+                options: {
+                    config: '_config.yml',
+                    dest: '.jekyll/<%= yeoman.baseurl %>'
+                }
+            }
+        },
+        htmlmin: {
+            dist: {
+                options: {
+                    removeComments: true,
+                    collapseWhitespace: true,
+                    collapseBooleanAttributes: true,
+                    removeAttributeQuotes: true,
+                    removeRedundantAttributes: true,
+                    removeEmptyAttributes: true,
+                    minifyJS: true,
+                    minifyCSS: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    src: '**/*.html',
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                }]
+            }
+        },
+        uglify: {
+            options: {
+                preserveComments: false
+            },
+            dist: {
+                files: {
+                    '.tmp/<%= yeoman.baseurl %>/js/scripts.js': ['<%= yeoman.app %>/_assets/js/**/*.js']
+                }
+            }
+        },
+        sass: {
+            server: {
+                options: {
+                    sourceMap: true
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/_assets/scss',
+                    src: '**/*.{scss,sass}',
+                    dest: '.tmp/<%= yeoman.baseurl %>/css',
+                    ext: '.css'
+                }]
+            },
+            dist: {
+                options: {
+                    outputStyle: 'compressed'
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.app %>/_assets/scss',
+                    src: '**/*.{scss,sass}',
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/css',
+                    ext: '.css'
+                }]
+            }
+        },
+        uncss: {
+            options: {
+                htmlroot: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                report: 'gzip'
+            },
+            dist: {
+                src: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/**/*.html',
+                dest: '.tmp/<%= yeoman.baseurl %>/css/blog.css'
+            }
+        },
+        autoprefixer: {
+            options: {
+                browsers: ['last 3 versions']
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/<%= yeoman.baseurl %>/css',
+                    src: '**/*.css',
+                    dest: '.tmp/<%= yeoman.baseurl %>/css'
+                }]
+            }
+        },
+        critical: {
+            dist: {
+                options: {
+                    base: './',
+                    css: [
+                        '.tmp/<%= yeoman.baseurl %>/css/blog.css'
+                    ],
+                    minify: true,
+                    width: 320,
+                    height: 480
+                },
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    src: ['**/*.html'],
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                }]
+            }
+        },
+        cssmin: {
+            dist: {
+                options: {
+                    keepSpecialComments: 0,
+                    check: 'gzip'
+                },
+                files: [{
+                    expand: true,
+                    cwd: '.tmp/<%= yeoman.baseurl %>/css',
+                    src: ['*.css'],
+                    dest: '.tmp/<%= yeoman.baseurl %>/css'
+                }]
+            }
+        },
+        imagemin: {
+            options: {
+                progressive: true
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img',
+                    src: '**/*.{jpg,jpeg,png,gif}',
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img'
+                }]
+            }
+        },
+        svgmin: {
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img',
+                    src: '**/*.svg',
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img'
+                }]
+            }
+        },
+        copy: {
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '.tmp/<%= yeoman.baseurl %>',
+                    src: [
+                        'css/**/*',
+                        'js/**/*'
+                    ],
+                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                }]
+            }
+        },
+        buildcontrol: {
+            dist: {
+                options: {
+                    dir: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    remote: 'git@github.com:user/repo.git',
+                    branch: 'gh-pages',
+                    commit: true,
+                    push: true,
+                    connectCommits: false
+                }
+            }
+        }
+    });
+
+    // Define Tasks
+    grunt.registerTask('serve', function(target) {
+        if (target === 'dist') {
+            return grunt.task.run(['build', 'connect:dist:keepalive']);
+        }
+
+        grunt.task.run([
+            'clean:server',
+            'jekyll:server',
+            'sass:server',
+            'autoprefixer',
+            'uglify',
+            'connect:livereload',
+            'watch'
+        ]);
+    });
+
+    grunt.registerTask('server', function() {
+        grunt.log.warn('The `server` task has been deprecated. Use `grunt serve` to start a server.');
+        grunt.task.run(['serve']);
+    });
+
+    grunt.registerTask('build', [
+        'clean:dist',
+        'jekyll:dist',
+        'imagemin',
+        'svgmin',
+        'sass:dist',
+        'uncss',
+        'autoprefixer',
+        'cssmin',
+        'uglify',
+        'critical',
+        'htmlmin'
+    ]);
+
+    grunt.registerTask('deploy', [
+        'build',
+        'copy',
+        'buildcontrol'
+    ]);
+
+    grunt.registerTask('default', [
+        'serve'
+    ]);
+};
 ```
 
+I have used **require('jit-grunt')(grunt);** to run tasks instead of **require('load-grunt-tasks')(grunt);** because it much faster (6 **ms** compared to 4,7 **s**).
 
+In the project, I compile `.scss` files with [grunt-sass](https://github.com/sindresorhus/grunt-sass), which uses libsass which is a Sass compiler in C++, in purpose of performance. But there are [missing some features](http://sass-compatibility.github.io/). So if you need more stable compiler or Compass support use [grunt-contrib-sass](https://github.com/gruntjs/grunt-contrib-sass).
+{:.h-warning}
 
-![image]({{site.baseurl}}/img/posts/android-form-validation-right-way/z-validations-not-in-range.png){:.medium-width}
+Running `grunt serve` (you can run it as default task `grunt`) on the command line will perform the following tasks:
 
-##### Useful links
+* make Jekyll magic and compile your site to `.jekyll` folder;
+* compile `.scss` files and autoprefix them;
+* compile `.js` files;
+* start a web server for you;
+* watch your files and runs Grunt tasks when they are needed.
 
-*(I'll update lists every time I find related topics)*
+When you are ready to deploy it on a server (in my example on GitHub) run `grunt deploy`, which will do the next tasks:
 
-- [Post about text input on d.android.com](http://developer.android.com/guide/topics/ui/controls/text.html)
+* make Jekyll magic and compile your site to `.jekyll` folder;
+* compress all images in `img` folder;
+* compile `.sass` files, delete unnecessary css styles, autoprefix and compress them;
+* compile and compress `.js` files;
+* generate and insert [critical css](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/page-speed-rules-and-recommendations#inline-render-blocking-css) into pages;
+* compress `.html` pages;
+* push changes into *gh-pages* branch of *git@github.com:user/repo.git* remote.
+
+Final project structure looks like:
+
+``` lineos:false
+│   Gruntfile.js
+│   package.json
+│   _config.build.yml
+│   _config.yml
+│
+└───app
+    │   404.html
+    │   CNAME
+    │   feed.xml
+    │   index.html
+    │
+    ├───img
+    │
+    ├───_assets
+    │   ├───js
+    │   └───scss
+    │
+    ├───_data
+    │
+    ├───_includes
+    │
+    ├───_layouts
+    │
+    └───_posts
+```
+
+That's all. Now you can easily develop your site/blog with Jekyll and get highly optimized production version of it.
+If you have some questions or suggestions feel free to comment here or send me a message directly.

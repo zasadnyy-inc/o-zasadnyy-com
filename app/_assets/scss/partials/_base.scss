@@ -30,7 +30,7 @@ $sub-text-color: #999999;
 $link-lighten-amount: 20%;
 
 $note-color: #03A9F4;
-$warning-color: $main-color;
+$warning-color: #FF9900;
 $tip-color: #4CAF50;
 $disclaimer-color: $sub-text-color;
 
@@ -45,4 +45,4 @@ $box-shadow-animation: box-shadow $transition-duration $transition-animation;
 $image-dir: "../img";
 $sprites-dir: $image-dir + "/sprites";
 
-@import "modules/utility";
+@import "../modules/utility";
