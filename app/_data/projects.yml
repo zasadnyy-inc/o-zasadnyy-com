@@ -1,9 +1,0 @@
--
-  group: "Open Source"
-  elements:
-    -
-      title: "Project Zeppelin"
-      description: "Project Zeppelin allows you to setup awesome conference website in 5 minutes"
-      project_page: "https://github.com/gdg-x/zeppelin"
-      tags: ["jekyll", "html5", "gdgx"]
-      featured: true
