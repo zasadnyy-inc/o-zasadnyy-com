@@ -1,5 +1,5 @@
 <div class="slides-gallery col-md-12">
-    <ul class="row">
+    <ul>
         {% for item in site.data.slides reversed %}
             <li class="slide-item col-lg-3 col-md-4 col-xs-6">
                 <a href="{{ item.slides_url }}" target="_blank">
@@ -8,18 +8,6 @@
                     <span class="slide-date">{{ item.date | date: '%B %d, %Y' }}</span>
                 </a>
             </li>
-            {% assign check4 = forloop.index | modulo:4 %}
-            {% if check4 == 0 %}
-                <div class="clearfix visible-lg-block"></div>
-            {% endif %}
-            {% assign check3 = forloop.index | modulo:3 %}
-            {% if check3 == 0 %}
-                <div class="clearfix visible-md-block"></div>
-            {% endif %}
-            {% assign check2 = forloop.index | modulo:2 %}
-            {% if check2 == 0 %}
-                <div class="clearfix visible-sm-block"></div>
-            {% endif %}
         {% endfor %}
     </ul>
 </div>

@@ -46,6 +46,9 @@
     .categories {
         color: $main-color-second;
         transition: $color-animation;
+        &:hover {
+        	color: lighten($main-color-second, $link-lighten-amount);
+        }
     }
 }
 .article-item {
@@ -54,19 +57,18 @@
     &:last-child {
         margin: 0;
     }
-    &:hover, &:active, &:focus {
+    span {
+        display: block;
+    }
+}
+.link-article {
+	&:hover, &:active, &:focus {
         .article-title {
             color: lighten($header-color, $link-lighten-amount);
         }
         .article-intro {
             color: lighten($text-color, $link-lighten-amount);
         }
-        .categories {
-            color: lighten($main-color-second, $link-lighten-amount);
-        }
-    }
-    span {
-        display: block;
     }
 }
 .pagination {

@@ -3,7 +3,7 @@
 # 2. config.build.yml
 # 3. config.yml
 
-future: false
-show_drafts: false
+# future: false
+# show_drafts: false
 
 exclude: ['css', 'js', 'fonts']

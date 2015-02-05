@@ -1,26 +1,26 @@
 ---
 layout: article
 title: "Optimized Jekyll site with Grunt"
-headline: "Developing sites with Jekyll is really simple, but with Grunt, you will get ecstasy."
-date: 2015-01-18T21:12:17+02:00
-estimate: "10 mins"
+headline: "Developing sites with Jekyll is really simple but with Grunt you will get ecstasy."
+date: 2015-01-31T16:12:17+02:00
+estimate: "15 mins"
 categories: [jekyll, grunt, web performance]
 post: true
 ---
 
-I have started developing static sites with [Jekyll](http://jekyllrb.com/) in May. For anyone who don't know what it is:
+I have started developing static sites with [Jekyll](http://jekyllrb.com/) in May. For everyone who don't know what it is:
 
 > Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and our Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
 
-I liked the idea of modules in site project that eventually will generate static website. Furthermore [GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/) can generate and host it for you, so you get **free hosting** and **push to deploy** ideology.
+I like the idea of modules in site project that eventually will generate static website. Furthermore [GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/) can generate and host it for you, so you get **free hosting** and **push to deploy** ideology.
 
-That's why it was the perfect choice for [Project Zeppelin](https://github.com/gdg-x/zeppelin) - free site template for conferences (mostly GDG DevFest, but for sure you can use it as you want). Unfortunately there are limitations of using plug-ins with GitHub pages, so you can't use them, for example, to compile Compass files, minify css, js and html files or highlight your code.
+That's why it was the perfect choice for [Project Zeppelin](https://github.com/gdg-x/zeppelin) - free site template for conferences (mostly for GDG DevFest, but for sure you can use it as you want). Unfortunately, there are limitations of using plug-ins with GitHub pages, so you can't use them, for example, to compile Compass files, minify css, js and html files or highlight your code.
 
-Fortunately, [Grunt](http://gruntjs.com/) help us with it and gives even more. So let's get started.\\
+Fortunately, [Grunt](http://gruntjs.com/) help us with it and gives even more. So let's get started.
 
 
 #### Installation
-First of all you need to install [Bundler](http://bundler.io/) for easier way to install gem dependencies
+First of all you need to install [Bundler](http://bundler.io/) for easier way to install gem dependencies.
 
 ``` lineos:false
 gem install bundler
@@ -28,20 +28,20 @@ gem install bundler
 Requirements: Install [Ruby](https://www.ruby-lang.org/en/) & [RubyGems](https://rubygems.org/)
 {:.req}
 
-Add these gems to your Gemfile
+Add these gems to your Gemfile:
 
 ``` title:"Gemfile"
 source "http://rubygems.org"
 
 gem 'jekyll'
 ```
-Run this command to install them
+Run this command to install them:
 
 ``` lineos:false
 bundle install
 ```
 
-And Grunt for sure
+And don't forget to install Grunt:
 
 ``` lineos:false
 npm install -g grunt-cli
@@ -49,15 +49,15 @@ npm install -g grunt-cli
 Requirements: Install [Node.js](http://nodejs.org/)
 {:.req}
 
-We are almost ready to use Grunt, but first of all you need to create **package.json**, that is used by npm and contains the dependencies for your project
+We are almost ready to use Grunt, but before that you need to create **package.json**, which is used by npm and contains the dependencies for your project.
 
 ``` title:"package.json"
 {
-    "name": "your-next-website",
-    "version": "0.0.1",
-    "description": "Dependencies of your next website",
-    "author": "Name Surname",
-    "devDependencies": {
+	"name": "your-next-website",
+	"version": "0.0.1",
+	"description": "Dependencies of your next website",
+	"author": "Name Surname",
+	"devDependencies": {
         "grunt": "~0.4.5",
         "grunt-autoprefixer": "~2.2.0",
         "grunt-build-control": "~0.3.0",
@@ -74,7 +74,7 @@ We are almost ready to use Grunt, but first of all you need to create **package.
         "grunt-sass": "~0.17.0",
         "grunt-svgmin": "~2.0.0",
         "grunt-uncss": "~0.4.0",
-        "jit-grunt": "~0.9.0",
+    	"jit-grunt": "~0.9.0",
         "time-grunt": "~1.0.0"
     },
     "engines": {
@@ -82,17 +82,17 @@ We are almost ready to use Grunt, but first of all you need to create **package.
     }
 }
 ```
-You can update dependencies with [amazing tool](https://www.npmjs.com/package/npm-check-updates). Simply install it `npm install -g npm-check-updates` and run `npm-check-updates -u`. This command will update all devDepencies to latest versions.
+You can update dependencies with [amazing tool](https://www.npmjs.com/package/npm-check-updates). Simply install `npm install -g npm-check-updates` and run it with `npm-check-updates -u`. This command will update all devDepencies to the latest versions.
 {:.h-tip}
 
-To install them just run
+To install them just run:
 
 ``` lineos:false
 npm install
 ```
 
 #### The Grunt task configuration
-Grunt allows us to define a couple of tasks and run them from the shell. They are defined in a Gruntfile.js. I have generated first Gruntfile with [Yeoman Generator](https://github.com/robwierzbowski/generator-jekyllrb), but then I edited to get the better result. So that it is what I got.
+Grunt allows us to define a couple of tasks and run them from the shell. They are defined in a Gruntfile.js. I have generated first Gruntfile with [Yeoman Generator](https://github.com/robwierzbowski/generator-jekyllrb), but then I edited it to get the better result. So that it is what I got.
 
 ```js title:"Gruntfile.js"
 'use strict';
@@ -104,23 +104,23 @@ module.exports = function(grunt) {
     require('jit-grunt')(grunt);
 
     grunt.initConfig({
-        yeoman: {
+        app: {
             app: 'app',
             dist: 'dist',
             baseurl: ''
         },
         watch: {
             sass: {
-                files: ['<%= yeoman.app %>/_assets/scss/**/*.{scss,sass}'],
+                files: ['<%= app.app %>/_assets/scss/**/*.{scss,sass}'],
                 tasks: ['sass:server', 'autoprefixer']
             },
             scripts: {
-                files: ['<%= yeoman.app %>/_assets/js/**/*.{js}'],
+                files: ['<%= app.app %>/_assets/js/**/*.{js}'],
                 tasks: ['uglify']
             },
             jekyll: {
                 files: [
-                    '<%= yeoman.app %>/**/*.{html,yml,md,mkd,markdown}'
+                    '<%= app.app %>/**/*.{html,yml,md,mkd,markdown}'
                 ],
                 tasks: ['jekyll:server']
             },
@@ -130,9 +130,9 @@ module.exports = function(grunt) {
                 },
                 files: [
                     '.jekyll/**/*.{html,yml,md,mkd,markdown}',
-                    '.tmp/<%= yeoman.baseurl %>/css/*.css',
-                    '.tmp/<%= yeoman.baseurl %>/js/*.js',
-                    '<%= yeoman.app %>/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
+                    '.tmp/<%= app.baseurl %>/css/*.css',
+                    '.tmp/<%= app.baseurl %>/js/*.js',
+                    '<%= app.app %>/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
                 ]
             }
         },
@@ -146,22 +146,22 @@ module.exports = function(grunt) {
             livereload: {
                 options: {
                     open: {
-                        target: 'http://localhost:9000/<%= yeoman.baseurl %>'
+                        target: 'http://localhost:9000/<%= app.baseurl %>'
                     },
                     base: [
                         '.jekyll',
                         '.tmp',
-                        '<%= yeoman.app %>'
+                        '<%= app.app %>'
                     ]
                 }
             },
             dist: {
                 options: {
                     open: {
-                        target: 'http://localhost:9000/<%= yeoman.baseurl %>'
+                        target: 'http://localhost:9000/<%= app.baseurl %>'
                     },
                     base: [
-                        '<%= yeoman.dist %>',
+                        '<%= app.dist %>',
                         '.tmp'
                     ]
                 }
@@ -177,8 +177,8 @@ module.exports = function(grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= yeoman.dist %>/*',
-                        '!<%= yeoman.dist %>/.git*'
+                        '<%= app.dist %>/*',
+                        '!<%= app.dist %>/.git*'
                     ]
                 }]
             }
@@ -186,17 +186,17 @@ module.exports = function(grunt) {
         jekyll: {
             options: {
                 config: '_config.yml,_config.build.yml',
-                src: '<%= yeoman.app %>'
+                src: '<%= app.app %>'
             },
             dist: {
                 options: {
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    dest: '<%= app.dist %>/<%= app.baseurl %>',
                 }
             },
             server: {
                 options: {
                     config: '_config.yml',
-                    dest: '.jekyll/<%= yeoman.baseurl %>'
+                    dest: '.jekyll/<%= app.baseurl %>'
                 }
             }
         },
@@ -214,9 +214,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>',
                     src: '**/*.html',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
             }
         },
@@ -226,7 +226,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    '.tmp/<%= yeoman.baseurl %>/js/scripts.js': ['<%= yeoman.app %>/_assets/js/**/*.js']
+                    '.tmp/<%= app.baseurl %>/js/scripts.js': ['<%= app.app %>/_assets/js/**/*.js']
                 }
             }
         },
@@ -237,9 +237,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/_assets/scss',
+                    cwd: '<%= app.app %>/_assets/scss',
                     src: '**/*.{scss,sass}',
-                    dest: '.tmp/<%= yeoman.baseurl %>/css',
+                    dest: '.tmp/<%= app.baseurl %>/css',
                     ext: '.css'
                 }]
             },
@@ -249,21 +249,21 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>/_assets/scss',
+                    cwd: '<%= app.app %>/_assets/scss',
                     src: '**/*.{scss,sass}',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/css',
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/css',
                     ext: '.css'
                 }]
             }
         },
         uncss: {
             options: {
-                htmlroot: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                htmlroot: '<%= app.dist %>/<%= app.baseurl %>',
                 report: 'gzip'
             },
             dist: {
-                src: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/**/*.html',
-                dest: '.tmp/<%= yeoman.baseurl %>/css/blog.css'
+                src: '<%= app.dist %>/<%= app.baseurl %>/**/*.html',
+                dest: '.tmp/<%= app.baseurl %>/css/blog.css'
             }
         },
         autoprefixer: {
@@ -273,9 +273,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/<%= yeoman.baseurl %>/css',
+                    cwd: '.tmp/<%= app.baseurl %>/css',
                     src: '**/*.css',
-                    dest: '.tmp/<%= yeoman.baseurl %>/css'
+                    dest: '.tmp/<%= app.baseurl %>/css'
                 }]
             }
         },
@@ -284,7 +284,7 @@ module.exports = function(grunt) {
                 options: {
                     base: './',
                     css: [
-                        '.tmp/<%= yeoman.baseurl %>/css/blog.css'
+                        '.tmp/<%= app.baseurl %>/css/blog.css'
                     ],
                     minify: true,
                     width: 320,
@@ -292,9 +292,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>',
                     src: ['**/*.html'],
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
             }
         },
@@ -306,9 +306,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '.tmp/<%= yeoman.baseurl %>/css',
+                    cwd: '.tmp/<%= app.baseurl %>/css',
                     src: ['*.css'],
-                    dest: '.tmp/<%= yeoman.baseurl %>/css'
+                    dest: '.tmp/<%= app.baseurl %>/css'
                 }]
             }
         },
@@ -319,9 +319,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>/img',
                     src: '**/*.{jpg,jpeg,png,gif}',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/img'
                 }]
             }
         },
@@ -329,9 +329,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>/img',
                     src: '**/*.svg',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/img'
                 }]
             }
         },
@@ -340,19 +340,19 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '.tmp/<%= yeoman.baseurl %>',
+                    cwd: '.tmp/<%= app.baseurl %>',
                     src: [
                         'css/**/*',
                         'js/**/*'
                     ],
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
             }
         },
         buildcontrol: {
             dist: {
                 options: {
-                    dir: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    dir: '<%= app.dist %>/<%= app.baseurl %>',
                     remote: 'git@github.com:user/repo.git',
                     branch: 'gh-pages',
                     commit: true,
@@ -424,7 +424,7 @@ Running `grunt serve` (you can run it as default task `grunt`) on the command li
 * start a web server for you;
 * watch your files and runs Grunt tasks when they are needed.
 
-When you are ready to deploy it on a server (in my example on GitHub) run `grunt deploy`, which will do the next tasks:
+When you are ready to deploy it on a server (in my case on GitHub) run `grunt deploy`, which will do the next tasks:
 
 * make Jekyll magic and compile your site to `.jekyll` folder;
 * compress all images in `img` folder;
@@ -443,25 +443,28 @@ Final project structure looks like:
 │   _config.yml
 │
 └───app
-    │   404.html
-    │   CNAME
-    │   feed.xml
-    │   index.html
-    │
-    ├───img
-    │
-    ├───_assets
-    │   ├───js
-    │   └───scss
-    │
-    ├───_data
-    │
-    ├───_includes
-    │
-    ├───_layouts
-    │
-    └───_posts
+	│   404.html
+	│   CNAME
+	│   feed.xml
+	│   index.html
+	│
+	├───img
+	│
+	├───_assets
+	│   ├───js
+	│   └───scss
+	│
+	├───_data
+	│
+	├───_includes
+	│
+	├───_layouts
+	│
+	└───_posts
 ```
+
+You can use my [template](https://github.com/ozasadnyy/optimized-jekyll-grunt) to start developing much faster.
+{:.h-tip}
 
 That's all. Now you can easily develop your site/blog with Jekyll and get highly optimized production version of it.
 If you have some questions or suggestions feel free to comment here or send me a message directly.

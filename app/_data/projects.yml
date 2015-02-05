@@ -7,3 +7,9 @@
       project_page: "https://github.com/gdg-x/zeppelin"
       tags: ["jekyll", "html5", "gdgx"]
       featured: true
+    -
+      title: "Optimized-jekyll-grunt"
+      description: "Template for optimized Jekyll site or blog with Grunt"
+      project_page: "https://github.com/ozasadnyy/optimized-jekyll-grunt"
+      tags: ["jekyll", "grunt", "web performance"]
+      featured: true

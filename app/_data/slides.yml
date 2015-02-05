@@ -1,9 +1,18 @@
 -
   title: "GDG[x]. From idea to project"
-  description: "Presentation describes how GDG[x] works and it's main projects. In the second part, I'm talking about Projects Zeppelin from the idea and to realisation."
+  description: "Presentation describes how GDG[x] works and it's main projects. In the second part, I'm talking about Projects Zeppelin from the idea and to a realization."
   thumbnail: "thumb_from_idea_to_project.png"
   details_url: ""
-  slides_url: "https://docs.google.com/presentation/d/1p4q0V8uTHf36T3dOItl2v55bp1lbYPUusbev86ayccA/pub?start=false&loop=false&delayms=3000"
+  slides_url: "https://docs.google.com/presentation/d/19eGPzCl5bxRK5z_ISxxvVrj_ioL41ZSHHzyNMeiDmyI/pub?start=false&loop=false&delayms=3000"
   slides_provider: google_docs
   recording: ""
   date: 2014-11-01
+-
+  title: "Conference success"
+  description: "Have you ever wanted to organize an amazing conference? GDG DevFest Ukraine 2014 describes this perfectly."
+  thumbnail: "thumb_conference_success.png"
+  details_url: ""
+  slides_url: "https://docs.google.com/presentation/d/1O85443d5hBsNZmqjVhI9cNavia3wnjOJrz_6MSxq8O4/pub?start=false&loop=false&delayms=3000"
+  slides_provider: google_docs
+  recording: ""
+  date: 2015-01-23

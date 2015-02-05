@@ -9,23 +9,23 @@ module.exports = function(grunt) {
 	});
 
     grunt.initConfig({
-        yeoman: {
+        app: {
             source: 'app',
             dist: 'dist',
             baseurl: ''
         },
         watch: {
             sass: {
-                files: ['<%= yeoman.source %>/_assets/scss/**/*.{scss,sass}'],
+                files: ['<%= app.source %>/_assets/scss/**/*.{scss,sass}'],
                 tasks: ['sass:server', 'autoprefixer']
             },
             scripts: {
-                files: ['<%= yeoman.source %>/_assets/js/**/*.{js}'],
+                files: ['<%= app.source %>/_assets/js/**/*.{js}'],
                 tasks: ['uglify']
             },
             jekyll: {
                 files: [
-                    '<%= yeoman.source %>/**/*.{html,yml,md,mkd,markdown}'
+                    '<%= app.source %>/**/*.{html,yml,md,mkd,markdown}'
                 ],
                 tasks: ['jekyll:server']
             },
@@ -35,9 +35,9 @@ module.exports = function(grunt) {
                 },
                 files: [
                     '.jekyll/**/*.{html,yml,md,mkd,markdown}',
-                    '.tmp/<%= yeoman.baseurl %>/css/*.css',
-                    '.tmp/<%= yeoman.baseurl %>/js/*.js',
-                    '<%= yeoman.source %>/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
+                    '.tmp/<%= app.baseurl %>/css/*.css',
+                    '.tmp/<%= app.baseurl %>/js/*.js',
+                    '<%= app.source %>/img/**/*.{gif,jpg,jpeg,png,svg,webp}'
                 ]
             }
         },
@@ -51,22 +51,22 @@ module.exports = function(grunt) {
             livereload: {
                 options: {
                     open: {
-                        target: 'http://localhost:9000/<%= yeoman.baseurl %>'
+                        target: 'http://localhost:9000/<%= app.baseurl %>'
                     },
                     base: [
                         '.jekyll',
                         '.tmp',
-                        '<%= yeoman.source %>'
+                        '<%= app.source %>'
                     ]
                 }
             },
             dist: {
                 options: {
                     open: {
-                        target: 'http://localhost:9000/<%= yeoman.baseurl %>'
+                        target: 'http://localhost:9000/<%= app.baseurl %>'
                     },
                     base: [
-                        '<%= yeoman.dist %>',
+                        '<%= app.dist %>',
                         '.tmp'
                     ]
                 }
@@ -82,8 +82,8 @@ module.exports = function(grunt) {
                     dot: true,
                     src: [
                         '.tmp',
-                        '<%= yeoman.dist %>/*',
-                        '!<%= yeoman.dist %>/.git*'
+                        '<%= app.dist %>/*',
+                        '!<%= app.dist %>/.git*'
                     ]
                 }]
             }
@@ -91,17 +91,17 @@ module.exports = function(grunt) {
         jekyll: {
             options: {
                 config: '_config.yml,_config.build.yml',
-                src: '<%= yeoman.source %>'
+                src: '<%= app.source %>'
             },
             dist: {
                 options: {
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    dest: '<%= app.dist %>/<%= app.baseurl %>',
                 }
             },
             server: {
                 options: {
                     config: '_config.yml',
-                    dest: '.jekyll/<%= yeoman.baseurl %>'
+                    dest: '.jekyll/<%= app.baseurl %>'
                 }
             }
         },
@@ -119,9 +119,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>',
                     src: '**/*.html',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
             }
         },
@@ -131,7 +131,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 files: {
-                    '.tmp/<%= yeoman.baseurl %>/js/scripts.js': ['<%= yeoman.source %>/_assets/js/**/*.js']
+                    '.tmp/<%= app.baseurl %>/js/scripts.js': ['<%= app.source %>/_assets/js/**/*.js']
                 }
             }
         },
@@ -145,9 +145,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.source %>/_assets/scss',
+                    cwd: '<%= app.source %>/_assets/scss',
                     src: '**/*.{scss,sass}',
-                    dest: '.tmp/<%= yeoman.baseurl %>/css',
+                    dest: '.tmp/<%= app.baseurl %>/css',
                     ext: '.css'
                 }]
             },
@@ -157,21 +157,21 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.source %>/_assets/scss',
+                    cwd: '<%= app.source %>/_assets/scss',
                     src: '**/*.{scss,sass}',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/css',
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/css',
                     ext: '.css'
                 }]
             }
         },
         uncss: {
             options: {
-                htmlroot: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                htmlroot: '<%= app.dist %>/<%= app.baseurl %>',
                 report: 'gzip'
             },
             dist: {
-                src: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/**/*.html',
-                dest: '.tmp/<%= yeoman.baseurl %>/css/blog.css'
+                src: '<%= app.dist %>/<%= app.baseurl %>/**/*.html',
+                dest: '.tmp/<%= app.baseurl %>/css/blog.css'
             }
         },
         autoprefixer: {
@@ -181,9 +181,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '.tmp/<%= yeoman.baseurl %>/css',
+                    cwd: '.tmp/<%= app.baseurl %>/css',
                     src: '**/*.css',
-                    dest: '.tmp/<%= yeoman.baseurl %>/css'
+                    dest: '.tmp/<%= app.baseurl %>/css'
                 }]
             }
         },
@@ -192,7 +192,7 @@ module.exports = function(grunt) {
                 options: {
                     base: './',
                     css: [
-                        '.tmp/<%= yeoman.baseurl %>/css/blog.css'
+                        '.tmp/<%= app.baseurl %>/css/blog.css'
                     ],
                     minify: true,
                     width: 320,
@@ -200,9 +200,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>',
                     src: ['**/*.html'],
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
             }
         },
@@ -214,9 +214,9 @@ module.exports = function(grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '.tmp/<%= yeoman.baseurl %>/css',
+                    cwd: '.tmp/<%= app.baseurl %>/css',
                     src: ['*.css'],
-                    dest: '.tmp/<%= yeoman.baseurl %>/css'
+                    dest: '.tmp/<%= app.baseurl %>/css'
                 }]
             }
         },
@@ -227,15 +227,15 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img/posts',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>/img/posts',
                     src: '**/*.{jpg,jpeg,png,gif}',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img/posts'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/img/posts'
                 },
                 {
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img/slides',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>/img/slides',
                     src: '**/*.{jpg,jpeg,png,gif}',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img/slides'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/img/slides'
                 }]
             }
         },
@@ -243,9 +243,9 @@ module.exports = function(grunt) {
             dist: {
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img/posts',
+                    cwd: '<%= app.dist %>/<%= app.baseurl %>/img/posts',
                     src: '**/*.svg',
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>/img/posts'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>/img/posts'
                 }]
             }
         },
@@ -254,19 +254,19 @@ module.exports = function(grunt) {
                 files: [{
                     expand: true,
                     dot: true,
-                    cwd: '.tmp/<%= yeoman.baseurl %>',
+                    cwd: '.tmp/<%= app.baseurl %>',
                     src: [
                         'css/**/*',
                         'js/**/*'
                     ],
-                    dest: '<%= yeoman.dist %>/<%= yeoman.baseurl %>'
+                    dest: '<%= app.dist %>/<%= app.baseurl %>'
                 }]
             }
         },
         buildcontrol: {
             dist: {
                 options: {
-                    dir: '<%= yeoman.dist %>/<%= yeoman.baseurl %>',
+                    dir: '<%= app.dist %>/<%= app.baseurl %>',
                     remote: 'git@github.com:zasadnyy-inc/o-zasadnyy-com.git',
                     branch: 'gh-pages',
                     commit: true,

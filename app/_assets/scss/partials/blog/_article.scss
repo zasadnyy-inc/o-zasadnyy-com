@@ -2,7 +2,7 @@
     float: none;
     line-height: 1.6em;
     h3, h4, h5, h6 {
-    	margin: 50px 0 14px;
+        margin: 50px 0 14px;
         line-height: 1.3em;
     }
     h3 {
@@ -116,10 +116,10 @@
     }
 }
 .req {
-	margin-top: -20px;
-	font-size: .7em;
-	font-style: italic;
-	color: $sub-text-color;
+    margin-top: -20px;
+    font-size: .7em;
+    font-style: italic;
+    color: $sub-text-color;
 }
 .article-header {
     margin-bottom: 40px;
@@ -161,6 +161,9 @@
     }
     a {
         color: #ffffff;
+        &:hover {
+            color: rgba(255, 255, 255, .8);
+        }
     }
     .name {
         color: $sub-text-color;

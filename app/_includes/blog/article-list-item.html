@@ -1,0 +1,19 @@
+<li class="article-item">
+    <div class="left text-right">
+        <span class="date">{{ include.article_item.date | date: "%-d/%b" }}</span>
+        <span class="year">{{ include.article_item.date | date: "%Y" }}</span>
+    </div>
+    <div class="right">
+        <a class="link-article" href="{{ include.article_item.url | prepend: site.baseurl }}">
+            <h5 class="article-title">{{ include.article_item.title }}</h5>
+            <p class="article-intro">
+                {{ include.article_item.content | strip_html | truncate: 350 }}
+            </p>
+        </a>
+        <span class="categories">
+            {% for category in include.article_item.categories %}
+                <a href="{{ site.baseurl | append: site.category_dir | append: category }}" class="categories">#{{ category }}</a>{% if forloop.index < forloop.length %}, {% endif %}
+            {% endfor %}
+        </span>
+    </div>
+</li>

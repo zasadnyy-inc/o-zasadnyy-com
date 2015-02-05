@@ -54,7 +54,7 @@
 						<span class="name">Tags:</span>
 						<span class="value">
 						{% for category in page.categories %}
-							#{{ category }}{% if forloop.index < forloop.length %}, {% endif %}
+							<a class="category" href="{{ site.baseurl | append: site.category_dir | append: category }}">#{{ category }}</a>{% if forloop.index < forloop.length %}, {% endif %}
 						{% endfor %}
 						</span>
 					</li>
