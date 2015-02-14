@@ -8,19 +8,20 @@ categories: [jekyll, grunt, web performance]
 post: true
 ---
 
-I have started developing static sites with [Jekyll](http://jekyllrb.com/) in May. For everyone who don't know what it is:
+I have started developing static sites with [Jekyll](http://jekyllrb.com/) in May. For those who don't know what it is:
 
-> Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and our Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
+> Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
 
-I like the idea of modules in site project that eventually will generate static website. Furthermore [GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/) can generate and host it for you, so you get **free hosting** and **push to deploy** ideology.
+I like the idea of modular website project that eventually will be generated to static website. Furthermore [GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/) can generate and host it for you, so you get **free, reliable hosting** with **push to deploy** feature.
 
-That's why it was the perfect choice for [Project Zeppelin](https://github.com/gdg-x/zeppelin) - free site template for conferences (mostly for GDG DevFest, but for sure you can use it as you want). Unfortunately, there are limitations of using plug-ins with GitHub pages, so you can't use them, for example, to compile Compass files, minify css, js and html files or highlight your code.
+That's why it was the perfect choice for [Project Zeppelin](https://github.com/gdg-x/zeppelin) - free conference site template (mostly for GDG DevFest, but for sure you can use it as you want). Unfortunately, GitHub Pages has limited number of available plug-ins, for instance, there are no plugins to compile Compass files, minify css, js and html files or highlight your code.
 
 Fortunately, [Grunt](http://gruntjs.com/) help us with it and gives even more. So let's get started.
 
 
 #### Installation
-First of all you need to install [Bundler](http://bundler.io/) for easier way to install gem dependencies.
+
+First of all you need to install [Bundler](http://bundler.io/) for easy gem dependency management.
 
 ``` lineos:false
 gem install bundler
@@ -35,6 +36,7 @@ source "http://rubygems.org"
 
 gem 'jekyll'
 ```
+
 Run this command to install them:
 
 ``` lineos:false
@@ -46,10 +48,11 @@ And don't forget to install Grunt:
 ``` lineos:false
 npm install -g grunt-cli
 ```
+
 Requirements: Install [Node.js](http://nodejs.org/)
 {:.req}
 
-We are almost ready to use Grunt, but before that you need to create **package.json**, which is used by npm and contains the dependencies for your project.
+We are almost ready to use Grunt, but before that you need to create **package.json**, which is used by npm and contains project dependencies.
 
 ``` title:"package.json"
 {
@@ -82,7 +85,8 @@ We are almost ready to use Grunt, but before that you need to create **package.j
     }
 }
 ```
-You can update dependencies with [amazing tool](https://www.npmjs.com/package/npm-check-updates). Simply install `npm install -g npm-check-updates` and run it with `npm-check-updates -u`. This command will update all devDepencies to the latest versions.
+
+You can update dependencies with [amazing tool](https://www.npmjs.com/package/npm-check-updates). Simply install `npm install -g npm-check-updates` and run it with `npm-check-updates -u`. This command will update all dependencies to the latest versions.
 {:.h-tip}
 
 To install them just run:
@@ -91,8 +95,9 @@ To install them just run:
 npm install
 ```
 
-#### The Grunt task configuration
-Grunt allows us to define a couple of tasks and run them from the shell. They are defined in a Gruntfile.js. I have generated first Gruntfile with [Yeoman Generator](https://github.com/robwierzbowski/generator-jekyllrb), but then I edited it to get the better result. So that it is what I got.
+#### Grunt task configuration
+
+Grunt allows us to define a couple of tasks and run them from the shell. They are defined in a Gruntfile.js. I've generated initial Gruntfile with [Yeoman Generator](https://github.com/robwierzbowski/generator-jekyllrb) and edited it to get better results. Here is what I've got.
 
 ```js title:"Gruntfile.js"
 'use strict';
@@ -413,7 +418,7 @@ module.exports = function(grunt) {
 
 I have used **require('jit-grunt')(grunt);** to run tasks instead of **require('load-grunt-tasks')(grunt);** because it much faster (6 **ms** compared to 4,7 **s**).
 
-In the project, I compile `.scss` files with [grunt-sass](https://github.com/sindresorhus/grunt-sass), which uses libsass which is a Sass compiler in C++, in purpose of performance. But there are [missing some features](http://sass-compatibility.github.io/). So if you need more stable compiler or Compass support use [grunt-contrib-sass](https://github.com/gruntjs/grunt-contrib-sass).
+In the project, I compile `.scss` files with [grunt-sass](https://github.com/sindresorhus/grunt-sass), which uses libsass which is a Sass compiler written in C++, in purpose of performance. But there are [missing features](http://sass-compatibility.github.io/). So if you need more stable compiler or Compass support use [grunt-contrib-sass](https://github.com/gruntjs/grunt-contrib-sass).
 {:.h-warning}
 
 Running `grunt serve` (you can run it as default task `grunt`) on the command line will perform the following tasks:
@@ -422,9 +427,9 @@ Running `grunt serve` (you can run it as default task `grunt`) on the command li
 * compile `.scss` files and autoprefix them;
 * compile `.js` files;
 * start a web server for you;
-* watch your files and runs Grunt tasks when they are needed.
+* watch your files and run Grunt tasks when they are needed.
 
-When you are ready to deploy it on a server (in my case on GitHub) run `grunt deploy`, which will do the next tasks:
+When you are ready to deploy it on a server (in my case GitHub) run `grunt deploy`, which will do the following tasks:
 
 * make Jekyll magic and compile your site to `.jekyll` folder;
 * compress all images in `img` folder;
@@ -463,8 +468,8 @@ Final project structure looks like:
 	└───_posts
 ```
 
-You can use my [template](https://github.com/ozasadnyy/optimized-jekyll-grunt) to start developing much faster.
+Feel free to use my [template](https://github.com/ozasadnyy/optimized-jekyll-grunt) to start developing much faster.
 {:.h-tip}
 
 That's all. Now you can easily develop your site/blog with Jekyll and get highly optimized production version of it.
-If you have some questions or suggestions feel free to comment here or send me a message directly.
+If you have any questions or suggestions feel free to comment here or send me a message directly.
