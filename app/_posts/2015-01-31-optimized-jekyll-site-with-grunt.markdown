@@ -1,7 +1,7 @@
 ---
 layout: article
 title: "Optimized Jekyll site with Grunt"
-headline: "Developing sites with Jekyll is really simple but with Grunt you will get ecstasy."
+headline: "Developing sites with Jekyll is really simple but with Grunt you will get ecstasy"
 date: 2015-01-31T16:12:17+02:00
 estimate: "15 mins"
 categories: [jekyll, grunt, web performance]
