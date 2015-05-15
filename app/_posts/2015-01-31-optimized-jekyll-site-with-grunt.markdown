@@ -12,11 +12,11 @@ I have started developing static sites with [Jekyll](http://jekyllrb.com/) in Ma
 
 > Jekyll is a simple, blog-aware, static site generator. It takes a template directory containing raw text files in various formats, runs it through a converter (like Markdown) and Liquid renderer, and spits out a complete, ready-to-publish static website suitable for serving with your favorite web server.
 
-I like the idea of modular website project that eventually will be generated to static website. Furthermore [GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/) can generate and host it for you, so you get **free, reliable hosting** with **push to deploy** feature.
+I like the idea of modular website project that eventually will be generated into a static website. Furthermore [GitHub Pages](https://help.github.com/articles/using-jekyll-with-pages/) can generate and host it for you, so you get **free, reliable hosting** with **push to deploy** feature.
 
 That's why it was the perfect choice for [Project Zeppelin](https://github.com/gdg-x/zeppelin) - free conference site template (mostly for GDG DevFest, but for sure you can use it as you want). Unfortunately, GitHub Pages has limited number of available plug-ins, for instance, there are no plugins to compile Compass files, minify css, js and html files or highlight your code.
 
-Fortunately, [Grunt](http://gruntjs.com/) help us with it and gives even more. So let's get started.
+Fortunately, [Grunt](http://gruntjs.com/) helps us with it and gives even more. So let's get started.
 
 
 #### Installation

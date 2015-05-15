@@ -13,3 +13,9 @@
       project_page: "https://github.com/ozasadnyy/optimized-jekyll-grunt"
       tags: ["jekyll", "grunt", "web performance"]
       featured: true
+    -
+      title: "Project Zeppelin Grunt"
+      description: "Optimized version of Project Zeppelin, that uses Grunt to make your website faster than ever"
+      project_page: "https://github.com/gdg-x/zeppelin-grunt"
+      tags: ["jekyll", "gdgx", "grunt"]
+      featured: true

@@ -16,3 +16,12 @@
   slides_provider: google_docs
   recording: ""
   date: 2015-01-23
+-
+  title: "Polymer workshop"
+  description: "This workshop aims to show advantages of using Google Polymer in developing modern web application."
+  thumbnail: "thumb_polymer_workshop.png"
+  details_url: ""
+  slides_url: "https://docs.google.com/presentation/d/1kGBOjar-3_Y0nIpJVYpkd7Cun6TN-U9PFLT1b_7fjaU/pub?start=false&loop=false&delayms=3000"
+  slides_provider: google_docs
+  recording: ""
+  date: 2015-05-11

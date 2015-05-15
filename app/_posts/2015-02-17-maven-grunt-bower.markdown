@@ -2,26 +2,29 @@
 layout: article
 title: "Run Grunt & Bower tasks during Maven build"
 headline: "Organize frontend dependencies and optimize development in your Maven project"
-date: 2015-02-14T22:50:23+02:00
+date: 2015-02-17T22:50:23+02:00
 estimate: "10 mins"
 categories: [maven, grunt, bower]
 post: true
 ---
 
-Recently I have joined a new company as Java developer. They know that I am good at frontend development as well, so one of the first my tasks was to rewrite web application's UI.
+Recently I have joined a new company as Java developer. One of my first tasks was to rewrite UI for one of the web applications.
 
-Project uses AngularJS, jQuery, Bootstrap in development, but there wasn't any package manager, as a result you should download and update libraries on you own. Moreover javascript wasn't concatenated and minified. Therefore, I had a lot of work but got really good results.
 
-In this article I will show you how to get easier frontend development in your Maven project. So let's get started.
+#### Technology stack
+
+Project was built with AngularJS, jQuery, Bootstrap, with manual dependency management and no resource optimizations. In other words, there were a lot of work to do.
+
+In this article, I will show how to setup Maven project for frontend development. So let's get started.
 
 
 #### Installation
 
-Thankfully, there are no need to install Node.js, Bower and Grunt on your own. [Eirik Sletteberg](https://github.com/eirslett) have created [frontend maven plugin](https://github.com/eirslett/frontend-maven-plugin) for all our needs.
+To start with, we need to install Node.js, Bower, and Grunt. We'll use [frontend maven plugin][1] created by [Eirik Sletteberg][2].
 
-> A Maven plugin that downloads/installs Node and NPM locally, runs NPM install, Grunt, Gulp and/or Karma. It's supposed to work on Windows, OS X and Linux.
+> A Maven plugin that downloads/installs Node and NPM locally, runs NPM install, Grunt, Gulp and/or Karma. It's supposed to work on Windows, OS X, and Linux.
 
-Include the Maven plugin to your dependencies of the project.
+Include the Maven plugin to your project dependencies:
 
 ```xml title:"pom.xml"
 <plugins>
@@ -34,8 +37,8 @@ Include the Maven plugin to your dependencies of the project.
 </plugins>
 ```
 
-Inside `<executions>...</executions>` we define our goals to install Node.js, npm itself and it's dependencies, Bower packages and run Grunt.
-As a result we have got next `pom.xml`:
+Inside `<executions>...</executions>` tag we define goals to install Node.js, npm with dependencies, Bower packages and run Grunt.
+Resulting `pom.xml`:
 
 ```xml title:"pom.xml"
 <plugins>
@@ -83,7 +86,7 @@ As a result we have got next `pom.xml`:
                     <goal>grunt</goal>
                 </goals>
                 <configuration>
-                	<arguments>build</arguments>
+                    <arguments>build</arguments>
                 </configuration>
             </execution>
 
@@ -93,7 +96,7 @@ As a result we have got next `pom.xml`:
 ```
 
 <div class="h-note" markdown="1">
-Don't forget to update your `.gitignore`, unless you actually want to commit node and dependencies. Here is mine as an example:
+Don't forget to update `.gitignore`, unless you actually want to commit node and dependencies, e.g.:
 
 ``` title:".gitignore"
 target
@@ -104,9 +107,9 @@ bower_components
 </div>
 
 
-For sure you want to watch your files for changes and re-run Grunt tasks. One solution is to use [grunt-contrib-watch](https://github.com/gruntjs/grunt-contrib-watch), but if you use Eclipse, than you will meet problems with it. Hopefully, the plugin contains support for M2E, including lifecycle mappings and support for incremental builds in Eclipse.
+Next  we'll set up project regeneration on file changes. One way to achieve this is to use [grunt-contrib-watch][3], but if you're using Eclipse, it's not going to work out of the box. We'll also need to setup M2E life-cycle mappings to support Eclipse incremental builds.
 
-For this purpose there are additional configuration options:
+For this purpose, there are configuration options:
 
  - **srcdir** (optional, for M2Eclipse integration) - a directory to check for changed files before executing in an incremental build
  - **triggerfiles** (optional, for M2Eclipse integration) - a list of files to check for changes before executing in an incremental build
@@ -126,11 +129,11 @@ Example:
 </configuration>
 ```
 
-`${target.environment}` variable depends on you [Maven profile](http://maven.apache.org/guides/introduction/introduction-to-profiles.html). For instance, we are using `<target.environment>serve</target.environment>` for development and `<target.environment>build</target.environment>` for production.
+`${target.environment}` variable depends on your [Maven profile][4]. For instance, we are using `<target.environment>serve</target.environment>` for development and `<target.environment>build</target.environment>` for production.
 
 #### Grunt and Bower configuration
 
-At this time we have the next project structure:
+We have the next project structure:
 
 ```
 |   pom.xml
@@ -175,7 +178,7 @@ At this time we have the next project structure:
 \---node
 ```
 
-Amazing thing, is that you don't need update frontend libraries yourself. All this boring work Bower doing for free. As an example you can use my Bower file:
+With Bower, there is no need to update frontend libraries manually. All this boring work Bower is doing for you. Here is sample Bower configuration file:
 
 ``` title:"bower.json"
 {
@@ -197,7 +200,7 @@ Amazing thing, is that you don't need update frontend libraries yourself. All th
 }
 ```
 
-To perform our tasks define npm dependencies in `package.json`:
+To perform all tasks define npm dependencies in `package.json`:
 
 ``` title:"package.json"
 {
@@ -222,7 +225,7 @@ To perform our tasks define npm dependencies in `package.json`:
 }
 ```
 
-Clarify Grunt task in `Gruntfile.js`. You can use mine as example:
+Declare Grunt tasks in `Gruntfile.js`. For instance:
 
 ```  title:"Gruntfile.js"
 'use strict';
@@ -360,7 +363,7 @@ module.exports = function(grunt) {
 
 <div class="h-tip" markdown="1">
 
-With this hack you can include a regular `.css` file in your `.scss`.
+With this hack, you can include a regular `.css` file in your `.scss`.
 
 ```
 copy: {
@@ -379,6 +382,16 @@ copy: {
 ```
 </div>
 
-Hooray! We are ready to start developing UI without headache. For sure, it is not the best example, but it shows you how to use this amazing plugin, install dependencies and define tasks for frontend development.
+Hooray! We are ready to start developing UI without headache. Maybe, it is not the best example, but it shows you how to use frontend maven plugin, install dependencies and define tasks for frontend development.
 
 Feel free to comment this article and express your opinion about this.
+
+
+
+[1]: https://github.com/eirslett/frontend-maven-plugin
+
+[2]: https://github.com/eirslett
+
+[3]: https://github.com/gruntjs/grunt-contrib-watch
+
+[4]: http://maven.apache.org/guides/introduction/introduction-to-profiles.html
