@@ -25,3 +25,21 @@
   slides_provider: google_docs
   recording: ""
   date: 2015-05-11
+-
+  title: "The state of GDG[x] and the projects we build for you!"
+  description: "Presentation about GDG[x] projects we have made for all GDGs around the world. The session took place on GDG Summit just before Google I/O 2015."
+  thumbnail: "thumb_the_state_of_gdg_x.png"
+  details_url: ""
+  slides_url: "https://docs.google.com/presentation/d/17hcig2aYUxsYKpVNPnio--zTc3j9GyAzSBP9ax1FkBA/pub?start=false&loop=false&delayms=3000"
+  slides_provider: google_docs
+  recording: ""
+  date: 2015-05-27
+-
+  title: "New World of Web Development with Polymer"
+  description: "Just one week ago Google has released the production version of Polymer 1.0. So it's the best time to start learning Polymer and build applications using it."
+  thumbnail: "thumb_new_world_of_web_development_with_polymer.png"
+  details_url: ""
+  slides_url: "https://docs.google.com/presentation/d/1kZ4PTWu3PiTERm0CXJ5vTWHbX_aNg2OBznCNduiv9T8/pub?start=false&loop=false&delayms=3000"
+  slides_provider: google_docs
+  recording: ""
+  date: 2015-06-06

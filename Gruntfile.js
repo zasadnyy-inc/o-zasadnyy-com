@@ -302,7 +302,7 @@ module.exports = function(grunt) {
     grunt.registerTask('build', [
         'clean:dist',
         'jekyll:dist',
-        'imagemin',
+        // 'imagemin',
         'svgmin',
         'sass:dist',
         'uncss',
